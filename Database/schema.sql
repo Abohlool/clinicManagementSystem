@@ -3,7 +3,8 @@
 -- persons table
 CREATE TABLE `person` (
     `id` INT AUTO_INCREMENT,
-    `name` VARCHAR(32) NOT NULL,
+    `name` VARCHAR(65) NOT NULL,
+    `first_name` VARCHAR(32) NOT NULL,
     `last_name` VARCHAR(32) NOT NULL,
     `social_security` INT NOT NULL,
     `age` SMALLINT NOT NULL,
