@@ -27,6 +27,7 @@ namespace ClinicManagementSystem.Models
         public string? Job;
         public string? MaritalStatus;
 
+        //* adult constructor
         public Patient(string fname, string lname, int SS, DateOnly dob, string phoneNumber,
             string sex, string insurance, string history, string job, string maritalStatus)
             : base(fname, lname, SS, dob, phoneNumber, sex)
@@ -36,15 +37,15 @@ namespace ClinicManagementSystem.Models
             Job = job; MaritalStatus = maritalStatus;
         }
 
+        //* child constructor
         public Patient(string fname, string lname, int SS, DateOnly dob, string phoneNumber,
             string sex, string insurance, string history, string pms, string parentsJob, int parentId)
             : base(fname, lname, SS, dob, phoneNumber, sex)
         {
             Type = "Child"; Insurance = insurance;
             History = history; ParentsMaritalStatus = pms;
-            ParentsJob = parentsJob;
+            ParentsJob = parentsJob; ParentId = parentId;
         }
-
 
         public static Patient GetInfo()
         {
@@ -83,7 +84,14 @@ namespace ClinicManagementSystem.Models
                 string pj;
                 do {Console.Write("Enter Parents Job: "); pj = Console.ReadLine().Trim();}
                 while (string.IsNullOrWhiteSpace(pj));
-                return new Patient(fn, ln, ss, dob, pn, sx, ins, hist, pms: pms, parentsJob: pj);
+
+                while (true)
+                {
+                    Console.Write("Enter Parent's PersonRecord ID: ");
+                    if (int.TryParse(Console.ReadLine().Trim(), out parentId) && parentId > 0) break;
+                    Console.WriteLine("Invalid parent ID. Please enter a valid number.");
+                }
+                return new Patient(fn, ln, ss, dob, pn, sx, ins, hist, pms: pms, parentsJob: pj, parentId);
             }
 
             string job;
